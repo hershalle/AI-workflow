@@ -49,6 +49,7 @@ type: feedback
 - Prefer composition over inheritance.
 - Avoid unnecessary abstractions — every layer must justify its existence.
 - When logging errors, log the error object directly — never use `localizedDescription`.
+- Nested type definitions (enums, structs, etc.) go at the very top of the enclosing type, before properties and methods.
 
 **Why:** Clean, readable code without scaffolding noise.
 **How to apply:** If you feel the urge to write a comment or MARK, consider restructuring the code instead.
