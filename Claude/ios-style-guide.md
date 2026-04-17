@@ -107,6 +107,20 @@ type: feedback
 - Implicit `internal` for view structs.
 - `fileprivate` for file-scoped types.
 
+## Error Handling (`try` vs `try?`)
+- **Functions should throw** — let the caller decide how to handle the error.
+- **Callers should catch and log** — not swallow silently.
+- **Never show errors to the user unless the entire operation fails** — partial failures (e.g. one item in a loop) should only be logged.
+- Use `try?` only when:
+  - Decoding a union type (try one branch, fall back to another)
+  - The fallback value is semantically correct and failure is truly uninteresting (e.g. mock/test code)
+- Use `do/catch` with logging when:
+  - The error is useful for debugging but the operation can continue with a default (e.g. metadata extraction with a fallback value)
+  - Processing a loop where one failure shouldn't stop the rest
+- Use `try` (and let it throw) when:
+  - The caller needs to know about the failure
+  - Failure means the whole operation should abort
+
 ## Guard vs If-Let
 - **Guard**: early exit, validation, unwrapping needed for the rest of scope.
 - **If-let**: optional binding used only within a limited scope.
