@@ -48,6 +48,7 @@ type: feedback
 - Prefer enums over raw strings for keys and configuration.
 - Prefer composition over inheritance.
 - Avoid unnecessary abstractions — every layer must justify its existence.
+- When logging errors, log the error object directly — never use `localizedDescription`.
 
 **Why:** Clean, readable code without scaffolding noise.
 **How to apply:** If you feel the urge to write a comment or MARK, consider restructuring the code instead.
@@ -99,6 +100,7 @@ type: feedback
 - `NavigationLink`
 - `// MARK:` comments
 - ViewModels without justification
+- `error.localizedDescription` in logs
 
 ## Access Control
 - `private` for implementation details.
