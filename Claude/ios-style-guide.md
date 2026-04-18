@@ -103,6 +103,7 @@ type: feedback
 - `// MARK:` comments
 - ViewModels without justification
 - `error.localizedDescription` in logs
+- Caseless `enum` used as a namespace or to prevent instantiation (use `struct` with `private init()` instead)
 
 ## Access Control
 - `private` for implementation details.
@@ -131,3 +132,4 @@ type: feedback
 - Associated values for flexible data.
 - Computed properties on enums (`var displayName`, `var color`).
 - `unknown(String)` case for future compatibility with `supportedOrDefault` computed property.
+- Only use `enum` when there are actual cases. Never use a caseless `enum` as a namespace or to prevent instantiation — use a `struct` with a `private init()` instead.
