@@ -44,6 +44,7 @@ type: feedback
 ## Code Style
 - Code must be self-explanatory.
 - Avoid comments unless absolutely necessary.
+- Xcode-generated file header comments (the default block at the top of new Swift files) are acceptable — leave them in place.
 - Avoid `// MARK:` — structure code instead.
 - Prefer enums over raw strings for keys and configuration.
 - Prefer composition over inheritance.
