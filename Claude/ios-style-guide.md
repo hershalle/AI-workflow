@@ -26,6 +26,7 @@ type: feedback
 ## Navigation (Strict)
 - Do NOT use `NavigationLink`.
 - Always use programmatic navigation.
+- Never simulate a navigation bar (e.g. custom HStack with a title and buttons). Always use a `NavigationStack`'s native navigation bar, even inside bottom sheets.
 
 **Why:** Programmatic navigation is more testable, predictable, and composable.
 **How to apply:** Use navigation state (e.g., a path or route enum) and push/pop imperatively.
@@ -37,6 +38,7 @@ type: feedback
 - Variables/properties: camelCase. Booleans use `is/has/shows` prefix.
 - Types/Enums: PascalCase. Enum cases: camelCase.
 - Static factories: `MyType.make()` style.
+- Never omit external parameter labels (`_`) unless following an established Swift/Apple convention (e.g. `init(_ value:)`).
 
 **Why:** Consistent, readable naming following Apple conventions.
 **How to apply:** Match these conventions for all new code.
