@@ -39,6 +39,7 @@ type: feedback
 - Types/Enums: PascalCase. Enum cases: camelCase.
 - Static factories: `MyType.make()` style.
 - Never omit external parameter labels (`_`) unless following an established Swift/Apple convention (e.g. `init(_ value:)`).
+- Prefer the parameter name as the external label over prepositional labels like `for`, `with`, `from`. Example: `analyticsNetworkName(nativeAd:)` — not `analyticsNetworkName(for nativeAd:)`. Use prepositional labels only when following an established Apple API pattern (e.g. `String(contentsOf:)`).
 
 **Why:** Consistent, readable naming following Apple conventions.
 **How to apply:** Match these conventions for all new code.
