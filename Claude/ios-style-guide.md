@@ -132,6 +132,11 @@ type: feedback
 - **Guard**: early exit, validation, unwrapping needed for the rest of scope.
 - **If-let**: optional binding used only within a limited scope.
 
+## Switch Patterns
+- Always place `let` immediately after `case`, not inside the associated value list.
+  - Prefer: `case let .foo(x):`
+  - Avoid: `case .foo(let x):`
+
 ## Enum Patterns
 - Associated values for flexible data.
 - Computed properties on enums (`var displayName`, `var color`).
