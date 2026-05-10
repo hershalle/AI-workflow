@@ -23,6 +23,14 @@ type: feedback
 **Why:** Avoid coupling to third-party APIs throughout the codebase.
 **How to apply:** Always create a thin wrapper/facade over external libraries.
 
+## R.swift Usage
+- Assets (images/colors): use Apple's native `Image(.foo)` / `Color(.foo)`. Never `R.image.*` / `R.color.*`.
+- Everything else (files, strings, fonts, storyboards, etc.): use R.swift (`R.file.*`, `R.string.*`, …).
+- Force-unwrap R.swift results — they are guaranteed to exist at build time.
+
+**Why:** Apple's generated asset symbols are first-class and integrate with SwiftUI previews and Xcode tooling. R.swift remains the right tool for non-asset resources where Apple has no equivalent. Force-unwrapping is safe because R.swift only generates symbols for resources that exist.
+**How to apply:** Reach for `Image(.foo)` / `Color(.foo)` first. Fall back to `R.*` only for resource types Apple doesn't cover natively, and unwrap with `!`.
+
 ## Navigation (Strict)
 - Do NOT use `NavigationLink`.
 - Always use programmatic navigation.
@@ -60,6 +68,7 @@ type: feedback
 
 ## State & Data Flow
 - Avoid excessive use of `@Environment` — use only for dependencies that belong to the entire view tree (e.g. session).
+- Use `@Entry` macro when extending `EnvironmentValues`, `Transaction`, `ContainerValues`, or `FocusedValues`.
 - Maintain clear separation between DB models and UI models.
 - Prefer value types for UI models.
 
