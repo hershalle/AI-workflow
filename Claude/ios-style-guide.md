@@ -76,6 +76,10 @@ type: feedback
 - Use `async/await` as the default concurrency model.
 - Target Swift 6.2+ mindset (default MainActor isolation, `@concurrent`, `nonisolated`).
 - Avoid legacy patterns unless strictly required.
+- To call MainActor-isolated state from a `@Sendable` closure (e.g. `Timer.scheduledTimer`, `DispatchQueue`, completion handlers), hop with `Task { @MainActor in … }`. Do NOT use `MainActor.assumeIsolated` — if the closure ever fires off the main thread the app crashes at runtime, and the compiler can't warn you because you explicitly opted out of the check. A future refactor can silently introduce the crash.
+
+**Why:** Static enforcement beats runtime assertions. A one-tick async hop is negligible; a production crash isn't.
+**How to apply:** When the compiler complains "Main actor-isolated … can not be referenced from a Sendable closure", wrap the body in `Task { @MainActor in … }` rather than reaching for `assumeIsolated`.
 
 ## Testing & Previews
 - Follow preview-driven development.
