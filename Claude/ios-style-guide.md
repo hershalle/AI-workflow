@@ -34,7 +34,7 @@ type: feedback
 ## Navigation (Strict)
 - Do NOT use `NavigationLink`.
 - Always use programmatic navigation.
-- Never simulate a navigation bar (e.g. custom HStack with a title and buttons). Always use a `NavigationStack`'s native navigation bar, even inside bottom sheets.
+- Never simulate a navigation bar (a custom `HStack` with a centered title and side buttons). When a screen genuinely needs a title/toolbar bar, use a `NavigationStack`'s native bar — including inside sheets. Don't add a `NavigationStack` solely to get a bar a view doesn't need: a sheet that only confirms an action (no navigation, no toolbar) should be plain content with buttons.
 
 **Why:** Programmatic navigation is more testable, predictable, and composable.
 **How to apply:** Use navigation state (e.g., a path or route enum) and push/pop imperatively.
