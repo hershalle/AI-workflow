@@ -35,9 +35,10 @@ type: feedback
 - Do NOT use `NavigationLink`.
 - Always use programmatic navigation.
 - Never simulate a navigation bar (a custom `HStack` with a centered title and side buttons). When a screen genuinely needs a title/toolbar bar, use a `NavigationStack`'s native bar — including inside sheets. Don't add a `NavigationStack` solely to get a bar a view doesn't need: a sheet that only confirms an action (no navigation, no toolbar) should be plain content with buttons.
+- Put the `NavigationStack` where the navigation lives, not where the bar is drawn. A view that drives its own flow (pushes destinations) embeds `NavigationStack(path:)`. A single-screen view presented in a sheet stays pure content — the presenter wraps it in `NavigationStack` inside the `.sheet {}` closure. Either way the presented view declares its own `.navigationTitle`/`.toolbar`; they resolve against the enclosing stack.
 
-**Why:** Programmatic navigation is more testable, predictable, and composable.
-**How to apply:** Use navigation state (e.g., a path or route enum) and push/pop imperatively.
+**Why:** Programmatic navigation is more testable, predictable, and composable. A content view that embeds its own `NavigationStack` just for a bar can't be pushed onto an existing stack without nesting, and scatters chrome ownership across the view and its presenter.
+**How to apply:** Use navigation state (e.g., a path or route enum) and push/pop imperatively. Before embedding a `NavigationStack`, ask: does this view push its own destinations? If not, present it as content and let the sheet provide the stack.
 
 ## Naming Conventions
 - Clear and descriptive, but as short as possible — no abbreviations.
