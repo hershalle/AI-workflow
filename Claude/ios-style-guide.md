@@ -4,6 +4,10 @@ description: Comprehensive coding style, architecture, and decision rules for iO
 type: feedback
 ---
 
+## Writing Style
+- Do not use em dashes (—). Use a plain hyphen (-) instead.
+- Applies to all written output: PR comments, code review feedback, documentation, commit messages, and code comments.
+
 ## Architecture & Principles
 - KISS and DRY above all else.
 - Keep logic inside SwiftUI views (MVC-like). Introduce a ViewModel only when:
