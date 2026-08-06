@@ -147,6 +147,12 @@ type: feedback
   - The caller needs to know about the failure
   - Failure means the whole operation should abort
 
+## Remote Config
+- Remote Config flag definitions are a contract. Never write code to protect against a mistake on the Remote Config side, and never flag one in review.
+
+**Why:** Config is team-owned. Guarding against our own misconfiguration adds noise and hides a mistake that should be fixed in the console.
+**How to apply:** Assume the key is there. Tolerant decoding is for server-owned data, not config.
+
 ## Guard vs If-Let
 - **Guard**: early exit, validation, unwrapping needed for the rest of scope.
 - **If-let**: optional binding used only within a limited scope.
