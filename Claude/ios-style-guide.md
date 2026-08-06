@@ -161,6 +161,7 @@ type: feedback
 - Always place `let` immediately after `case`, not inside the associated value list.
   - Prefer: `case let .foo(x):`
   - Avoid: `case .foo(let x):`
+- Prefer an exhaustive `switch` over `if case` / `guard case` when matching an enum: adding a case then fails to compile and forces an explicit decision at every site. Don't add `default` to silence it (framework enums still need `@unknown default`).
 
 ## Enum Patterns
 - Associated values for flexible data.
