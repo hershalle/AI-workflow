@@ -27,13 +27,18 @@ type: feedback
 **Why:** Avoid coupling to third-party APIs throughout the codebase.
 **How to apply:** Always create a thin wrapper/facade over external libraries.
 
-## R.swift Usage
+## Resources & Localization
 - Assets (images/colors): use Apple's native `Image(.foo)` / `Color(.foo)`. Never `R.image.*` / `R.color.*`.
-- Everything else (files, strings, fonts, storyboards, etc.): use R.swift (`R.file.*`, `R.string.*`, …).
-- Force-unwrap R.swift results — they are guaranteed to exist at build time.
+- Strings: use a String Catalog (`Localizable.xcstrings`), never R.swift. The English text is the key.
+  - SwiftUI call sites take plain literals: `Text("Cancel")`, `Button("Delete")`, `.navigationTitle("Journals")`, `.accessibilityLabel("Photo")`.
+  - When a `String` is required, use `String(localized: "Delete \(count) photos?")`.
+  - A ternary between two literals must be typed `LocalizedStringKey` (a computed property), otherwise the extractor misses one branch.
+  - Never hand-add keys to the catalog. Xcode's compiler extraction (`SWIFT_EMIT_LOC_STRINGS`) populates it on build. Plural forms are set in the catalog editor with "Vary by Plural" on the `%lld` key; never hand-roll pluralization like `"photo\(count == 1 ? "" : "s")"`.
+  - Text that must not be translated (user content, identifiers, debug labels) goes through `Text(verbatim:)` or a `String` variable so it never reaches the catalog.
+- Everything else (files, fonts, storyboards, etc.): use R.swift (`R.file.*`, …) and force-unwrap the result. It is guaranteed to exist at build time.
 
-**Why:** Apple's generated asset symbols are first-class and integrate with SwiftUI previews and Xcode tooling. R.swift remains the right tool for non-asset resources where Apple has no equivalent. Force-unwrapping is safe because R.swift only generates symbols for resources that exist.
-**How to apply:** Reach for `Image(.foo)` / `Color(.foo)` first. Fall back to `R.*` only for resource types Apple doesn't cover natively, and unwrap with `!`.
+**Why:** Apple's generated asset symbols and String Catalogs are first-class: they integrate with SwiftUI previews, Xcode tooling, and per-file member import visibility without extra imports, and the catalog fills itself from the code. R.swift remains the right tool only for resource types Apple has no equivalent for. Force-unwrapping is safe because R.swift only generates symbols for resources that exist.
+**How to apply:** Reach for `Image(.foo)` / `Color(.foo)` and literal strings first. Fall back to `R.*` only for resource types Apple doesn't cover natively, and unwrap with `!`.
 
 ## Navigation (Strict)
 - Do NOT use `NavigationLink`.
