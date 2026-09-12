@@ -1,6 +1,6 @@
 # AI-workflow
 
-Personal iOS development, testing, code-review, changelog, and story-review instructions for Claude Code and Codex.
+Personal general and iOS development, testing, code-review, changelog, and story-review instructions for Claude Code and Codex.
 
 ## Shared files
 
@@ -11,6 +11,18 @@ entry point that explicitly instructs Codex to read those same files.
 The story-readiness prompt is used on request, rather than as an instruction for
 every coding task.
 
+## Guide loading
+
+Both assistants read `development-guide.md` for all work. They read `test-guide.md`,
+`code-review-guide.md`, and `changelog-guide.md` for the corresponding tasks.
+iOS work additionally loads the iOS development and test guides. All projects use
+the general changelog guide. The story prompt stays on demand.
+Swift syntax, SwiftUI, and String Catalog exceptions do
+not apply to general development.
+
+New guide files must be referenced in both entry points. Both assistants see them
+through directory symlinks, so no additional symlinks are needed.
+
 ## Claude setup
 
 Run from this repository's root. Create links only for files that are not already
@@ -18,10 +30,13 @@ installed; inspect existing files or links before replacing them.
 
 ```bash
 mkdir -p "$HOME/.claude"
-for name in CLAUDE.md ios-style-guide.md ios-test-style-guide.md ios-changelog-style-guide.md ios-story-review-prompt.md; do
-  ln -s "$PWD/Claude/$name" "$HOME/.claude/$name"
-done
+ln -s "$PWD/Claude" "$HOME/.claude/ai-workflow"
+ln -s "$PWD/Claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 ```
+
+Start a new Claude session after setup. When migrating from individual guide
+symlinks, remove those old links only after verifying the directory link works.
+Keep the `CLAUDE.md` entry-point link.
 
 ## Codex setup
 

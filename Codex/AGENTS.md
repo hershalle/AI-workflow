@@ -1,21 +1,20 @@
 # Global Instructions
 
 The shared workflow files live in `ai-workflow` inside the Codex home directory
-(`$CODEX_HOME` when set, otherwise `~/.codex`). Resolve these paths from that
-directory, not from the current project or working directory.
+(`$CODEX_HOME` when set, otherwise `~/.codex`). Resolve all guide paths below from
+that directory, not from the current project or working directory.
 
-Before working, read and follow:
+Before working, read and follow `ai-workflow/development-guide.md`.
 
-- `ai-workflow/CLAUDE.md` for the shared code-review rules.
-- `ai-workflow/ios-style-guide.md` for writing style, development conventions, and Git rules.
-- `ai-workflow/ios-test-style-guide.md` for test selection and readability.
-- `ai-workflow/ios-changelog-style-guide.md` for release changelogs.
+Read and follow additional guides when relevant:
 
-Read these files explicitly; do not rely on the `@` imports in `CLAUDE.md` being
-expanded. Apply iOS-specific rules to iOS work and changelog rules to changelog
-tasks. These are global defaults; follow more specific project instructions when
-they override them. If a shared file is unavailable, report the missing path.
+- When writing or reviewing tests: `ai-workflow/test-guide.md`.
+- When reviewing code: `ai-workflow/code-review-guide.md` and `ai-workflow/test-guide.md`.
+- When writing changelogs: `ai-workflow/changelog-guide.md`.
+- For iOS/Swift development or code review: also read `ai-workflow/ios-style-guide.md` and `ai-workflow/ios-test-style-guide.md`.
+- When reviewing an iOS product story for development readiness: read `ai-workflow/ios-story-review-prompt.md`. Its app context and review-only constraints apply only to that task.
 
-When asked to review a product story for development readiness, also read and
-follow `ai-workflow/ios-story-review-prompt.md`. Its project context and review-only
-constraints apply only to that task, not to general development work.
+Read the files explicitly, including shared guides referenced by an iOS guide;
+do not rely on Claude's `@` import syntax. Resolve those references from the same
+`ai-workflow` directory. These are global defaults; follow more specific project
+instructions when they override them. If a guide is unavailable, report the missing path.

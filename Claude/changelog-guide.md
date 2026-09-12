@@ -1,4 +1,4 @@
-# iOS Changelog Style Guide
+# Changelog Guide
 
 ## Scope
 
@@ -12,7 +12,7 @@
 
 ## Structure
 
-- First line: `CallApp iOS <version>`.
+- First line: the product name and release version, following the project format.
 - Each entry: bold title, ticket ID in parentheses, then the prose in the same paragraph.
 - Order by user-visible impact, biggest first. Analytics, logging, infrastructure and tooling go last.
 - One paragraph per entry. When a ticket also carried an unrelated small fix, append it to the same paragraph after "Also:" instead of giving it its own entry.
@@ -23,7 +23,7 @@
 - Features: what it does, where in the app it appears, and the condition that makes it appear.
 - Anything measured in money or data: name the consequence (ad revenue, under-counted subscriptions, opt-in rates we could not see).
 - State it in the entry when a feature is in the build but switched off.
-- State any caveat the team will hit: applies on next launch, behind a Remote Config flag, one-time migration on first open.
+- State any caveat the team will hit: applies on next launch, behind a feature flag, one-time migration on first open.
 
 **Why:** A changelog is read to decide what to test and what to tell users. An entry that hides "this is disabled" or "this needs a flag turned on" costs a QA cycle or produces a false announcement.
 **How to apply:** Before finishing an entry, ask what would make a reader feel misled after they open the build. Put that in the entry.

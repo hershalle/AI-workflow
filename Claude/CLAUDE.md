@@ -1,31 +1,16 @@
 # Global Instructions
 
-@ios-style-guide.md
-@ios-test-style-guide.md
-@ios-changelog-style-guide.md
+@~/.claude/ai-workflow/development-guide.md
 
-## Code Review
-- When reviewing a branch, present each issue with both the problematic code and the suggested solution as code blocks, so the diff is immediately visible.
-- For each issue, include the file name, the enclosing function or property name, and the line number(s).
-- Format the issue header as a numbered list with the enclosing type and symbol, followed by the line number, then the issue description. Do not include the file path or a markdown link.
-- Split the review into a required `Issues` section for defects in the code, plus optional follow-up sections. Never list a follow-up finding as a code issue:
-  - `Missing Tests` for behavior that is not covered.
-  - `Missing Localization` for user-facing text that bypasses the String Catalog: a plain `String` shown to the user (`Text(title)` where `title` was built from literals), hand-rolled pluralization, or a literal ternary typed as `String`.
-- Follow-up sections are suggestions, not blockers. Mark each one `(optional)` in its header, and omit a section entirely when it would be empty.
-- A literal in `Text("…")`, `Button("…")`, `Label("…")`, or `.accessibilityLabel("…")` is localized by the String Catalog. Do not flag it.
-- Entries in every section use the same header format, numbered independently per section, pointing at the production symbol.
-- Only list a missing test that would catch a real regression, per the test style guide. Do not list one per new symbol.
-- Example:
-  ```
-  Issues:
-   1. CANotificationsManager.shouldSchedule(_:):132: <The issue description>
+The guides below are in `~/.claude/ai-workflow`. Read and follow them when relevant; resolve
+the paths from that directory, not the project working directory. Resolve references
+inside those guides from the same directory.
 
-  Missing Tests (optional):
-   1. CANotificationsManager.nextFireDate(_:):88: <The uncovered behavior and the regression it would catch>
+- When writing or reviewing tests: `test-guide.md`.
+- When reviewing code: `code-review-guide.md` and `test-guide.md`.
+- When writing changelogs: `changelog-guide.md`.
+- For iOS/Swift development or code review: also read `ios-style-guide.md` and `ios-test-style-guide.md`.
+- When reviewing an iOS product story for development readiness: read `ios-story-review-prompt.md`. Its app context and review-only constraints apply only to that task.
 
-  Missing Localization (optional):
-   1. ReminderRow.body:24: <The text that bypasses the catalog and how to route it through a literal or String(localized:)>
-  ```
-
-**Why:** An untested or unlocalized path is a follow-up, not a defect in the shipped behavior. Mixing them into `Issues` makes the review read as more blocking than it is, and buries the real problems.
-**How to apply:** For each finding, ask: "is the code wrong, or is it correct but untested / correct but unlocalized?" Anything other than wrong goes in a follow-up section.
+These are global defaults. Follow more specific project instructions when they override them.
+If a referenced guide is unavailable, report the missing path.
