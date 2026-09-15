@@ -23,6 +23,17 @@ not apply to general development.
 New guide files must be referenced in both entry points. Both assistants see them
 through directory symlinks, so no additional symlinks are needed.
 
+## Project guidance
+
+Document team-specific preferences and important project conventions in these
+guides. Trust the model's judgment for general engineering practice; do not add
+generic best-practice checklists. A pattern found in code is evidence to evaluate,
+not automatically a team rule. Keep shared preferences in these shared guides. Project entry
+points should load the installed `ai-workflow` guides and keep only project-specific
+conventions locally. Do not maintain copied versions of the shared guides in each
+repository. If an old guide path must remain available, make it a short forwarding
+document with an explicit instruction to read the authoritative file.
+
 ## Claude setup
 
 Run from this repository's root. Create links only for files that are not already
