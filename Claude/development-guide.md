@@ -14,6 +14,33 @@ These are defaults across languages and projects. Follow the language and projec
 - Do not split files only for organization.
 - Isolate third-party APIs behind facades at boundaries where it reduces coupling; avoid wrappers without clear value.
 
+## Telling another object that something happened
+
+Sometimes a manager needs to react to an event it cannot observe directly. The object that receives the event can tell the manager through a method call, much like a delegate callback.
+
+For example, the app observes SwiftUI's `scenePhase` and forwards relevant changes to its managers:
+
+```swift
+.onChange(of: scenePhase) { _, newValue in
+    switch newValue {
+    case .active:
+        SingularManager.shared.sceneIsActive()
+    case .background:
+        BackgroundTaskManager.sceneIsInBackground()
+    case .inactive:
+        break
+    @unknown default:
+        break
+    }
+}
+```
+
+The app reports “the scene is active” or “the scene is in the background.” Each manager decides what work to do in response. The app does not need to know how the manager handles that event.
+
+The relationship gives the message its meaning. App-wide managers can receive relevant app lifecycle events. A receiver dedicated to one screen, such as `HomeViewModel`, can receive `didAppear()` because it already knows which screen it handles.
+
+Forward events that belong to the receiver's responsibility. A general manager usually should not receive screen-specific messages such as `homeDidAppear()` just because Home can call it.
+
 ## Naming & Code Style
 - Use clear, descriptive names, as short as possible without abbreviations.
 - Follow the language and project naming conventions.
