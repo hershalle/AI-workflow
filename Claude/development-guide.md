@@ -20,28 +20,9 @@ These are defaults across languages and projects. Follow the language and projec
 
 Sometimes a manager needs to react to an event it cannot observe directly. The object that receives the event can tell the manager through a method call, much like a delegate callback.
 
-For example, the app observes SwiftUI's `scenePhase` and forwards relevant changes to its managers:
+Name the method after what happened, rather than the work you expect the receiver to perform. Include enough context to make the event clear to that receiver: an app-wide manager can receive `sceneIsActive()`, while an object dedicated to one screen can receive `didAppear()` because the screen is already understood.
 
-```swift
-.onChange(of: scenePhase) { _, newValue in
-    switch newValue {
-    case .active:
-        SingularManager.shared.sceneIsActive()
-    case .background:
-        BackgroundTaskManager.sceneIsInBackground()
-    case .inactive:
-        break
-    @unknown default:
-        break
-    }
-}
-```
-
-The app reports “the scene is active” or “the scene is in the background.” Each manager decides what work to do in response. The app does not need to know how the manager handles that event.
-
-The relationship gives the message its meaning. App-wide managers can receive relevant app lifecycle events. A receiver dedicated to one screen, such as `HomeViewModel`, can receive `didAppear()` because it already knows which screen it handles.
-
-Forward events that belong to the receiver's responsibility. A general manager usually should not receive screen-specific messages such as `homeDidAppear()` just because Home can call it.
+Forward only events that belong to the receiver's responsibility. The receiver decides how to respond to the named event; the sender does not need to know what work that involves.
 
 ## Naming & Code Style
 

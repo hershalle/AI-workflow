@@ -13,7 +13,6 @@ Apply alongside `development-guide.md` for iOS/Swift work only.
 
 - Use SwiftUI for all UI.
 - Use QuickLayout only for UIKit interoperability, not as a primary abstraction.
-- Do not expose third-party frameworks directly - wrap behind facades.
 
 ## Resources & Localization
 
@@ -111,18 +110,34 @@ The task asks the main actor to perform the update. `assumeIsolated` would only 
 
 Here, a namespace is a type used to group related operations. The static structure above produces call sites such as `NetworkManager.contacts.fetch(...)`: `NetworkManager` is the top-level group, `contacts` is a smaller group, and `fetch` is an operation. There is no manager instance at that call site. `Type+Domain.swift` names an extension file holding one group of related operations.
 
+### Forwarding lifecycle events
+
+For example, the app observes SwiftUI's `scenePhase` and forwards relevant changes to its managers:
+
+```swift
+.onChange(of: scenePhase) { _, newValue in
+    switch newValue {
+    case .active:
+        SingularManager.shared.sceneIsActive()
+    case .background:
+        BackgroundTaskManager.sceneIsInBackground()
+    case .inactive:
+        break
+    @unknown default:
+        break
+    }
+}
+```
+
+The app reports “the scene is active” or “the scene is in the background.” Each manager decides what work to do in response. The app does not need to know how the manager handles that event.
+
+The relationship gives the message its meaning. App-wide managers can receive relevant app lifecycle events. A receiver dedicated to one screen, such as `HomeViewModel`, can receive `didAppear()` because it already knows which screen it handles.
+
+Forward events that belong to the receiver's responsibility. A general manager usually should not receive screen-specific messages such as `homeDidAppear()` just because Home can call it.
+
 ## AI Assistant Rules
 
 - Never edit Storyboard (`.storyboard`) or XIB (`.xib`) files directly. These are generated, complex XML files. Instead, instruct the user step-by-step how to make the change in Interface Builder (which scene, which object, which inspector, which property).
-
-## Anti-Patterns (Avoid)
-
-- `ObservableObject`
-- `NavigationLink`
-- `// MARK:` comments
-- ViewModels without justification
-- `error.localizedDescription` in logs
-- Caseless `enum` used as a namespace or to prevent instantiation (use `struct` with `private init()` instead)
 
 ## Access Control
 
