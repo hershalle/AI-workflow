@@ -1,6 +1,6 @@
 # AI-workflow
 
-Personal general and iOS development, testing, code-review, changelog, and story-review instructions for Claude Code and Codex.
+Personal general and iOS development, testing, code-review, and changelog instructions for Claude Code and Codex.
 
 ## Shared files
 
@@ -8,15 +8,12 @@ Personal general and iOS development, testing, code-review, changelog, and story
 Edit the guides there to update both assistants. `Codex/AGENTS.md` is a small
 entry point that explicitly instructs Codex to read those same files.
 
-The story-readiness prompt is used on request, rather than as an instruction for
-every coding task.
-
 ## Guide loading
 
 Both assistants read `development-guide.md` for all work. They read `test-guide.md`,
 `code-review-guide.md`, and `changelog-guide.md` for the corresponding tasks.
 iOS work additionally loads the iOS development and test guides. All projects use
-the general changelog guide. The story prompt stays on demand.
+the general changelog guide.
 Swift syntax, SwiftUI, and String Catalog exceptions do
 not apply to general development.
 

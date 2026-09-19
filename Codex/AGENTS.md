@@ -12,7 +12,6 @@ Read and follow additional guides when relevant:
 - When reviewing code: `ai-workflow/code-review-guide.md` and `ai-workflow/test-guide.md`.
 - When writing changelogs: `ai-workflow/changelog-guide.md`.
 - For iOS/Swift development or code review: also read `ai-workflow/ios-style-guide.md` and `ai-workflow/ios-test-style-guide.md`.
-- When reviewing an iOS product story for development readiness: read `ai-workflow/ios-story-review-prompt.md`. Its app context and review-only constraints apply only to that task.
 
 Read the files explicitly, including shared guides referenced by an iOS guide;
 do not rely on Claude's `@` import syntax. Resolve those references from the same

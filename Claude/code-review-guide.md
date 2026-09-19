@@ -8,18 +8,32 @@
   - `Missing Localization` for user-facing text that bypasses the project localization mechanism. Use the platform guide to distinguish localized literals from unlocalized strings.
 - Follow-up sections are suggestions, not blockers. Mark each one `(optional)` in its header, and omit a section entirely when it would be empty.
 - Entries in every section use the same header format, numbered independently per section, pointing at the production symbol.
-- Only list a missing test that would catch a real regression, per the test style guide. Do not list one per new symbol.
-- Example:
-  ```
-  Issues:
-   1. NotificationScheduler.shouldSchedule:132: <The issue description>
+- Don’t ask for a test just because a function was added. Explain what could go wrong that the test would catch.
 
-  Missing Tests (optional):
-   1. NotificationScheduler.nextFireDate:88: <The uncovered behavior and the regression it would catch>
+## A finished review entry
 
-  Missing Localization (optional):
-   1. ReminderView.render:24: <The text that bypasses localization and how to use the project localization mechanism>
-  ```
+The following is an illustrative review of a scheduler whose documented rule requires both notification permission and an enabled feature flag. The filename and line number are examples.
 
-**Why:** An untested or unlocalized path is a follow-up, not a defect in the shipped behavior. Mixing them into `Issues` makes the review read as more blocking than it is, and buries the real problems.
-**How to apply:** For each finding, ask: "is the code wrong, or is it correct but untested / correct but unlocalized?" Anything other than wrong goes in a follow-up section.
+### Issues
+
+1. NotificationScheduler.shouldSchedule:132: Notifications are scheduled when the feature is disabled
+
+   File: `NotificationScheduler.swift`, property `shouldSchedule`, line 132.
+
+   Using `||` allows scheduling whenever either condition is true. A user with notification permission still gets notifications after the feature is disabled. Require both conditions.
+
+   Current:
+   ```swift
+   var shouldSchedule: Bool {
+       isAuthorized || isEnabled
+   }
+   ```
+
+   Suggested:
+   ```swift
+   var shouldSchedule: Bool {
+       isAuthorized && isEnabled
+   }
+   ```
+
+If the implementation were already correct but lacked a test for disabling the feature, that would belong under `Missing Tests (optional)` instead.

@@ -1,14 +1,13 @@
 # Changelog Guide
 
+Write for stakeholders deciding what to test, announce, or measure.
+
 ## Scope
 
 - A changelog covers exactly one release tag. Derive it from the commit range between the previous tag and this one (`git log <previous-tag>..<tag>`).
 - One entry per ticket, not per commit. Group every commit that served the same ticket into a single entry, including follow-up fixes made later in the release.
 - Take ticket IDs from merge commits, PR titles and branch names. Work with no ticket gets an entry with no parentheses, never an invented ID.
 - Read the diffs before writing an entry. Commit messages describe intent ("Refactor", "PR notes"), not user-visible outcome.
-
-**Why:** The reader is a stakeholder deciding what to test, announce or measure, not someone reviewing the branch. Twenty commits titled "Refactor" are one line to them.
-**How to apply:** For each ticket ask: "what would a user or a dashboard notice?" That answer is the entry. If nothing would, the ticket may not need an entry.
 
 ## Structure
 
@@ -25,9 +24,6 @@
 - State it in the entry when a feature is in the build but switched off.
 - State any caveat the team will hit: applies on next launch, behind a feature flag, one-time migration on first open.
 
-**Why:** A changelog is read to decide what to test and what to tell users. An entry that hides "this is disabled" or "this needs a flag turned on" costs a QA cycle or produces a false announcement.
-**How to apply:** Before finishing an entry, ask what would make a reader feel misled after they open the build. Put that in the entry.
-
 ## Leave out
 
 - Localization and translation work. Never gets an entry.
@@ -42,3 +38,15 @@
 ## Notes to the author
 
 - After the changelog, flag what needed judgment: a ticket you grouped or split yourself, a feature you found disabled, work you could not attribute to a ticket. Keep these outside the changelog body so it stays sendable as-is.
+
+## From commits to a release note
+
+Suppose a fictional release contains three commits for `IOS-123`: "Fix duplicate contacts," "Handle formatted phone numbers," and "PR feedback." After reading the diffs, you establish that they all fix the same import behavior.
+
+The changelog gets one entry describing the result:
+
+> CallApp 1.30
+>
+> **Contacts no longer appear twice after import** (IOS-123) Importing the same person with differently formatted phone numbers could create duplicate contacts. These numbers now match the existing contact during import.
+
+The ticket and version here are examples; use the actual release's identifiers when writing a changelog.
