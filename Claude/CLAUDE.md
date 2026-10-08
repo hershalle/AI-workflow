@@ -9,6 +9,7 @@ inside those guides from the same directory.
 - When writing or reviewing tests: `test-guide.md`.
 - When reviewing code: `code-review-guide.md` and `test-guide.md`.
 - When writing changelogs: `changelog-guide.md`.
+- When creating or editing Jira tickets: `jira-guide.md`.
 - For iOS/Swift development or code review: also read `ios-style-guide.md` and `ios-test-style-guide.md`.
 
 These are global defaults. Follow more specific project instructions when they override them.

@@ -11,6 +11,7 @@ Read and follow additional guides when relevant:
 - When writing or reviewing tests: `ai-workflow/test-guide.md`.
 - When reviewing code: `ai-workflow/code-review-guide.md` and `ai-workflow/test-guide.md`.
 - When writing changelogs: `ai-workflow/changelog-guide.md`.
+- When creating or editing Jira tickets: `ai-workflow/jira-guide.md`.
 - For iOS/Swift development or code review: also read `ai-workflow/ios-style-guide.md` and `ai-workflow/ios-test-style-guide.md`.
 
 Read the files explicitly, including shared guides referenced by an iOS guide;

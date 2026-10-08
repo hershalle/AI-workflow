@@ -11,7 +11,7 @@ entry point that explicitly instructs Codex to read those same files.
 ## Guide loading
 
 Both assistants read `development-guide.md` for all work. They read `test-guide.md`,
-`code-review-guide.md`, and `changelog-guide.md` for the corresponding tasks.
+`code-review-guide.md`, `changelog-guide.md`, and `jira-guide.md` for the corresponding tasks.
 iOS work additionally loads the iOS development and test guides. All projects use
 the general changelog guide.
 Swift syntax, SwiftUI, and String Catalog exceptions do
